@@ -1,0 +1,57 @@
+<%= form_for(@office) do |f| %>
+  <% if @office.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@office.errors.count, "error") %> prohibited this office from being saved:</h2>
+
+      <ul>
+      <% @office.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :addr1 %><br />
+    <%= f.text_field :addr1 %>
+  </div>
+  <div class="field">
+    <%= f.label :addr2 %><br />
+    <%= f.text_field :addr2 %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :zip %><br />
+    <%= f.text_field :zip %>
+  </div>
+  <div class="field">
+    <%= f.label :size %><br />
+    <%= f.number_field :size %>
+  </div>
+  <div class="field">
+    <%= f.label :occupancy %><br />
+    <%= f.number_field :occupancy %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.number_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :arrangement %><br />
+    <%= f.text_field :arrangement %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,6 @@
 Wanderdesk::Application.routes.draw do
+
+  resources :offices
   resources :users
   resource :session
 

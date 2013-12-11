@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @office.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @office.description %>
+</p>
+
+<p>
+  <b>Addr1:</b>
+  <%= @office.addr1 %>
+</p>
+
+<p>
+  <b>Addr2:</b>
+  <%= @office.addr2 %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @office.city %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%= @office.zip %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%= @office.size %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%= @office.owner_id %>
+</p>
+
+<p>
+  <b>Available:</b>
+  <%= @office.available %>
+</p>
+
+<p>
+  <b>Occupancy:</b>
+  <%= @office.occupancy %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @office.price %>
+</p>
+
+<p>
+  <b>Arrangement:</b>
+  <%= @office.arrangement %>
+</p>
+
+
+<%= link_to 'Edit', edit_office_path(@office) %> |
+<%= link_to 'Back', offices_path %>

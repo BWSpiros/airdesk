@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   :phone_number, :session, :password
 
   validates :password, length: {minimum: 6}
+  validates_presence_of :password, :email, :name
 
 
   def self.find_by_credentials(email, password)
