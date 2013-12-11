@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<% if !Favorite.find_by_user_id_and_office_id(current_user.id, @office.id)%>
+  <%= button_to "Track this Listing", {controller: "favorites", action: "create", office_id: @office.id} %>
+<% end %>
 <p>
   <b>Title:</b>
   <%= @office.title %>

@@ -5,6 +5,20 @@ class User < ActiveRecord::Base
   validates :password, length: {minimum: 6}
   validates_presence_of :password, :email, :name
 
+  has_many(:offices,
+  class_name: "Office",
+  foreign_key: :owner_id,
+  primary_key: :id
+  )
+
+  has_many(:favorites,
+  class_name: "Favorite",
+  foreign_key: :user_id,
+  primary_key: :id
+  )
+
+  has_many :favorite_offices, through: :favorites, source: :office
+
 
   def self.find_by_credentials(email, password)
     @user = User.find_by_email(email)
