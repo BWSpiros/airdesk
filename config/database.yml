@@ -17,7 +17,7 @@ development:
   encoding: unicode
   database: wanderdesk_development
   pool: 5
-  username: wanderdesk
+  username: appacademy
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -43,7 +43,7 @@ test:
   encoding: unicode
   database: wanderdesk_test
   pool: 5
-  username: wanderdesk
+  username: appacademy
   password:
 
 production:
