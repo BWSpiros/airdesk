@@ -62,11 +62,13 @@
   <%= @office.arrangement %>
 </p>
 
-<% unless @availability.nil? %>
-  <p>
-    <b>Availability:</b>
-    <%= @availability.start_date %> to <%= @availability.end_date %>
-  </p>
+<% unless @availabilities.nil? %>
+  <% @availabilities.each do |availability| %>
+    <p>
+      <b>Availability:</b>
+      <%= availability.start_date %> to <%= availability.end_date %> <%= button_to "Delete", availability, method: :delete, data: {confirm: "Are you sure?"} %>
+    </p>
+  <% end %>
 <% end %>
 
 <%= link_to 'Edit', edit_office_path(@office) %> |

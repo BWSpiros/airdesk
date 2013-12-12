@@ -10,7 +10,7 @@ class OfficesController < ApplicationController
 
   def show
     @office = Office.find(params[:id])
-    @availability = @office.availabilities[0]
+    @availabilities = @office.availabilities
 
     respond_to do |format|
       format.html # show.html.erb
@@ -69,15 +69,12 @@ class OfficesController < ApplicationController
     begin
       ActiveRecord::Base.transaction do
         @office = Office.find(params[:id])
-        @availability = Availability.find_by_office_id(params[:id]) || Availability.new(params[:availability])
-        # @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)}
+        @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)}
         @office.update_attributes(params[:office])
-        @availability.office = @office
-
-        @availability.persisted? ? (@availability.update_attributes(params[:availability])) : (@availability.save)
-        # @availabilities.each {|av| av.office = @office; av.save}
+        @availabilities.keep_if{|a| !a.start_date.nil? && !a.end_date.nil? }
+        @availabilities.each_with_index {|av, i| av.office = @office; av.update_attributes(params[:availabilities][i])}
         # fail
-        raise "invalid" unless @office.valid? && @availability.valid? #@availabilities.all? {|a| a.valid?}
+        raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
       end
     # rescue
     #   flash[:errors] = @office.errors.full_messages + @availability.errors.full_messages #@availabilities.map(&:errors).flatten

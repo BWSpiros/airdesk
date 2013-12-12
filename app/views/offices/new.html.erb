@@ -1,5 +1,14 @@
 <h1>New office</h1>
 
+<form accept-charset="UTF-8" action="/offices" class="new_office" id="new_office" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" />
+
 <%= render 'form' %>
+
+
+  <div class="actions">
+    <input name="commit" type="submit" value="Create Office" />
+  </div>
+
+</form>
 
 <%= link_to 'Back', offices_path %>
