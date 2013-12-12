@@ -23,7 +23,7 @@
     <td><%= office.occupancy %></td>
     <td><%= office.price %></td>
     <td><%= office.arrangement %></td>
-    <% if office.owner_id == current_user.id  %>
+    <% if current_user && office.owner_id == current_user.id  %>
       <td><%= link_to 'Edit', edit_office_path(office) %></td>
       <td><%= link_to 'Destroy', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>

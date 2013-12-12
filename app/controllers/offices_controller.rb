@@ -1,7 +1,8 @@
 class OfficesController < ApplicationController
+
   skip_before_filter :check_logged_in, only: [:index,:show]
 
-  before_filter :has_access, except: [:index, :show]
+  before_filter :has_access, only: [:edit, :destroy, :update, :create]
 
 
   def index

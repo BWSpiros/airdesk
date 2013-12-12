@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter :check_logged_in, only: [:new, :create]
 
   def index
     @users = User.all
