@@ -61,11 +61,13 @@
   <b>Arrangement:</b>
   <%= @office.arrangement %>
 </p>
-<p>
-  <b>Availability:</b>
-  <%= @availability.start_date %> to <%= @availability.end_date %>
-</p>
 
+<% unless @availability.nil? %>
+  <p>
+    <b>Availability:</b>
+    <%= @availability.start_date %> to <%= @availability.end_date %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_office_path(@office) %> |
 <%= link_to 'Back', offices_path %>

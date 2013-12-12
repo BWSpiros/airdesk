@@ -14,13 +14,13 @@
       </li>
       <% if logged_in? %>
       <li>
-        <%= link_to "Profile", current_user %>
+        <%= link_to current_user.name+"'s Profile", current_user %>
       </li>
       <li>
-        <%= link_to "Favorite Listings", favorites_url%>
+        <%= link_to current_user.name+"'s Favorites", favorites_url%>
       </li>
       <li>
-        <%= link_to "Listings", offices_url %>
+        <%= link_to "All Listings", offices_url %>
       </li>
       <li>
         <%= link_to "Create Listing", new_office_url %>

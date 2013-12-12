@@ -29,12 +29,10 @@ class OfficesController < ApplicationController
 
   def edit
     @office = Office.find(params[:id])
+    @availability = @office.availabilities[0]
   end
 
   def create
-    # @office = Office.new(params[:office])
-    # @office.owner_id = current_user.id
-    #     fail
     begin
       ActiveRecord::Base.transaction do
         @office = Office.new(params[:office])
@@ -70,17 +68,39 @@ class OfficesController < ApplicationController
   end
 
   def update
-    @office = Office.find(params[:id])
+    begin
+      ActiveRecord::Base.transaction do
+        @office = Office.find(params[:id])
+        @availability = Availability.find_by_office_id(params[:id]) || Availability.new(params[:availability])
+        # @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)}
+        @office.update_attributes(params[:office])
+        @availability.office = @office
 
-    respond_to do |format|
-      if @office.update_attributes(params[:office])
-        format.html { redirect_to @office, notice: 'Office was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @office.errors, status: :unprocessable_entity }
+        @availability.persisted? ? (@availability.update_attributes(params[:availability])) : (@availability.save)
+        # @availabilities.each {|av| av.office = @office; av.save}
+        # fail
+        raise "invalid" unless @office.valid? && @availability.valid? #@availabilities.all? {|a| a.valid?}
       end
+    # rescue
+    #   flash[:errors] = @office.errors.full_messages + @availability.errors.full_messages #@availabilities.map(&:errors).flatten
+    #   render :new
+    else
+      redirect_to root_url
     end
+
+
+
+    # @office = Office.find(params[:id])
+
+    # respond_to do |format|
+#       if @office.update_attributes(params[:office])
+#         format.html { redirect_to @office, notice: 'Office was successfully updated.' }
+#         format.json { head :no_content }
+#       else
+#         format.html { render action: "edit" }
+#         format.json { render json: @office.errors, status: :unprocessable_entity }
+#       end
+#     end
   end
 
   def destroy

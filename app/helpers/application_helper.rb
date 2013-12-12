@@ -1,7 +1,9 @@
 module ApplicationHelper
   def current_user
-    User.find_by_session(session[:token])
+    return @current_user || @current_user = User.find_by_session(session[:token])
   end
+
+# User.find_by_session(session[:token])
 
   def logged_in?
     !!current_user

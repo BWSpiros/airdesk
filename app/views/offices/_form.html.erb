@@ -1,5 +1,5 @@
 <%= form_for(@office) do |f| %>
-  <% if flash[:errors].any? %>
+  <% if !flash[:errors].nil? && flash[:errors].any? %>
     <div id="error_explanation">
       <h2><%= pluralize(flash[:errors].count, "error") %> prohibited this office from being saved:</h2>
 
@@ -56,11 +56,11 @@
 
     <div class="field">
       <%= a.label :start_date %><br />
-      <%= a.date_select :start_date %>
+      <%= a.date_select :start_date, include_blank: true %>
     </div>
     <div class="field">
       <%= a.label :end_date %><br />
-      <%= a.date_select :end_date %>
+      <%= a.date_select :end_date, include_blank: true %>
     </div>
 
   <% end %>
