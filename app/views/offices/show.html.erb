@@ -63,10 +63,10 @@
 </p>
 
 <% unless @availabilities.nil? %>
-  <% @availabilities.each do |availability| %>
+  <% @availabilities.each_with_index do |availability, ai| %>
     <p>
-      <b>Availability:</b>
-      <%= availability.start_date %> to <%= availability.end_date %> <%= button_to "Delete", availability, method: :delete, data: {confirm: "Are you sure?"} %>
+      <b>Availability <%= ai+1 %>:</b>
+      <%= availability.start_date %> to <%= availability.end_date %> <%= link_to "Delete!", availability, method: :delete, data: {confirm: "Are you sure?"} %>
     </p>
   <% end %>
 <% end %>

@@ -69,33 +69,34 @@ class OfficesController < ApplicationController
     begin
       ActiveRecord::Base.transaction do
         @office = Office.find(params[:id])
-        @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)}
         @office.update_attributes(params[:office])
-        @availabilities.keep_if{|a| !a.start_date.nil? && !a.end_date.nil? }
-        @availabilities.each_with_index {|av, i| av.office = @office; av.update_attributes(params[:availabilities][i])}
-        # fail
-        raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
+
+        @availabilities = params[:availabilities].map do |_, av_params| 
+          if av_params[:id]
+            av = Availability.find(av_params[:id])
+            av_params[:id] = ""
+            if av_params.all?{|x, y| y == ""}
+              av.destroy
+              next nil
+            end
+            av.update_attributes(av_params)
+            av
+          else
+            Availability.new(av_params)
+          end
+        end.compact
+      @availabilities.keep_if {|x| x.attributes != Availability.new.attributes }
+
+      @availabilities.each {|av| av.office_id = params[:id]; av.save}
+      
+      raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
       end
     # rescue
-    #   flash[:errors] = @office.errors.full_messages + @availability.errors.full_messages #@availabilities.map(&:errors).flatten
+    #   flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
     #   render :new
     else
       redirect_to root_url
     end
-
-
-
-    # @office = Office.find(params[:id])
-
-    # respond_to do |format|
-#       if @office.update_attributes(params[:office])
-#         format.html { redirect_to @office, notice: 'Office was successfully updated.' }
-#         format.json { head :no_content }
-#       else
-#         format.html { render action: "edit" }
-#         format.json { render json: @office.errors, status: :unprocessable_entity }
-#       end
-#     end
   end
 
   def destroy

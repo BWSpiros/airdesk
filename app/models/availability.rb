@@ -12,7 +12,7 @@ class Availability < ActiveRecord::Base
 
 
   def end_cannot_preceed_start
-    puts end_date
+    puts "FUCK: #{end_date}"
     puts start_date
     puts (end_date < start_date)
     errors.add(:base, "End date cannot come before start.") if (end_date < start_date)

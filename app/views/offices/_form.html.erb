@@ -44,14 +44,17 @@
 
   <% @availabilities.each_with_index do |a, aindex| %>
   <h3>Availability <%= aindex+1 %></h3>
+    <% if a.id != nil %>
+      <input type="hidden" name="availabilities[<%= aindex %>][id]" value="<%= a.id %>" >
+    <% end %>
     <div class="field">
       <label for="availability_start_date">Start date</label><br />
-      <input type="date" input_id="<%= a.id || 'new'+aindex.to_s %>" name="availabilities[<%= aindex %>][start_date]" value="<%= a.start_date %>">
+      <input type="date" name="availabilities[<%= aindex %>][start_date]" value="<%= a.start_date %>">
 
     </div>
     <div class="field">
       <label for="availability_end_date">End date</label><br />
-      <input type="date" input_id="<%= a.id || 'new'+aindex.to_s %>" name="availabilities[<%= aindex %>][end_date]" value="<%= a.end_date %>">
+      <input type="date" name="availabilities[<%= aindex %>][end_date]" value="<%= a.end_date %>">
     </div>
   <% end %>
   <p>
