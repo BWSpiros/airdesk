@@ -33,5 +33,7 @@ Wanderdesk::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  # Re-expand when doing Backbone if you don't want life to suck
+  # config.assets.debug = true
+
 end

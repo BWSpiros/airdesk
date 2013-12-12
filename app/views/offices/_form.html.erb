@@ -1,74 +1,67 @@
-<%= form_for(@office) do |f| %>
-  <% if !flash[:errors].nil? && flash[:errors].any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(flash[:errors].count, "error") %> prohibited this office from being saved:</h2>
-
-      <ul>
-      <% flash[:errors].each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<form accept-charset="UTF-8" action="/offices" class="new_office" id="new_office" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="2W36fOx9lmnicSgB+Sj6kcyqZCvE76EG9aj0gdz9Uhk=" /></div>
 
   <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <label for="office_title">Title</label><br />
+    <input id="office_title" name="office[title]" size="30" type="text" value="<%= @office.title %>"/>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <label for="office_description">Description</label><br />
+    <textarea cols="40" id="office_description" name="office[description]" rows="20" value="<%= @office.description %>">
+</textarea>
   </div>
   <div class="field">
-    <%= f.label :addr1 %><br />
-    <%= f.text_field :addr1 %>
+    <label for="office_addr1">Addr1</label><br />
+    <input id="office_addr1" name="office[addr1]" size="30" type="text" value="<%= @office.addr1 %>"/>
   </div>
   <div class="field">
-    <%= f.label :addr2 %><br />
-    <%= f.text_field :addr2 %>
+    <label for="office_addr2">Addr2</label><br />
+    <input id="office_addr2" name="office[addr2]" size="30" type="text" value="<%= @office.addr2 %>"/>
   </div>
   <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
+    <label for="office_city">City</label><br />
+    <input id="office_city" name="office[city]" size="30" type="text" value="<%= @office.city %>"/>
   </div>
   <div class="field">
-    <%= f.label :zip %><br />
-    <%= f.text_field :zip %>
+    <label for="office_zip">Zip</label><br />
+    <input id="office_zip" name="office[zip]" size="30" type="text" value="<%= @office.zip %>"/>
   </div>
   <div class="field">
-    <%= f.label :size %><br />
-    <%= f.number_field :size %>
+    <label for="office_size">Size</label><br />
+    <input id="office_size" name="office[size]" type="number" value="<%= @office.size %>"/>
   </div>
   <div class="field">
-    <%= f.label :occupancy %><br />
-    <%= f.number_field :occupancy %>
+    <label for="office_occupancy">Occupancy</label><br />
+    <input id="office_occupancy" name="office[occupancy]" type="number" value="<%= @office.occupancy %>"/>
   </div>
   <div class="field">
-    <%= f.label :price %><br />
-    <%= f.number_field :price %>
+    <label for="office_price">Price</label><br />
+    <input id="office_price" name="office[price]" type="number" value="<%= @office.price %>"/>
   </div>
   <div class="field">
-    <%= f.label :arrangement %><br />
-    <%= f.text_field :arrangement %>
+    <label for="office_arrangement">Arrangement</label><br />
+    <input id="office_arrangement" name="office[arrangement]" size="30" type="text" value="<%= @office.arrangement %>"/>
   </div>
 
-  <%= fields_for :availability do |a| %>
-
+  <% @availabilities.each_with_index do |a, aindex| %>
+  <h3>Availability <%= aindex+1 %></h3>
     <div class="field">
-      <%= a.label :start_date %><br />
-      <%= a.date_select :start_date, include_blank: true %>
+      <label for="availability_start_date">Start date</label><br />
+      <input type="date" input_id="start_date" name="availabilities[<%= aindex %>][start_date]" value="<%= a.start_date %>">
+
     </div>
     <div class="field">
-      <%= a.label :end_date %><br />
-      <%= a.date_select :end_date, include_blank: true %>
+      <label for="availability_end_date">End date</label><br />
+      <input type="date" input_id="end_date" name="availabilities[<%= aindex %>][end_date]" value="<%= a.end_date %>">
     </div>
-
   <% end %>
+  <p>
+    Leave an availability blank and it won't be added.
+  </p>
 
 
 
   <div class="actions">
-    <%= f.submit %>
+    <input name="commit" type="submit" value="Create Office" />
   </div>
 
-<% end %>
+</form>
