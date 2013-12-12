@@ -18,7 +18,7 @@ development:
   host: localhost
   database: wanderdesk_development
   pool: 5
-  username: webdev
+  username: appacademy
   password:
   port: 5432
 
@@ -46,7 +46,7 @@ test:
   host: localhost
   database: wanderdesk_development
   pool: 5
-  username: webdev
+  username: appacademy
   password:
   port: 5432
 

@@ -1,4 +1,9 @@
 class OfficesController < ApplicationController
+  skip_before_filter :check_logged_in, only: [:index,:show]
+
+  before_filter :has_access, except: [:index, :show]
+
+
   def index
     @offices = Office.all
 
@@ -33,6 +38,7 @@ class OfficesController < ApplicationController
   end
 
   def create
+
     begin
       ActiveRecord::Base.transaction do
         @office = Office.new(params[:office])
@@ -71,7 +77,7 @@ class OfficesController < ApplicationController
         @office = Office.find(params[:id])
         @office.update_attributes(params[:office])
 
-        @availabilities = params[:availabilities].map do |_, av_params| 
+        @availabilities = params[:availabilities].map do |_, av_params|
           if av_params[:id]
             av = Availability.find(av_params[:id])
             av_params[:id] = ""
@@ -88,12 +94,12 @@ class OfficesController < ApplicationController
       @availabilities.keep_if {|x| x.attributes != Availability.new.attributes }
 
       @availabilities.each {|av| av.office_id = params[:id]; av.save}
-      
+
       raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
       end
-    # rescue
-    #   flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
-    #   render :new
+    rescue
+      flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
+      render :new
     else
       redirect_to root_url
     end
@@ -108,4 +114,11 @@ class OfficesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def has_access
+    redirect_to root_url if Office.find(params[:id]).owner_id != current_user.id
+  end
+
 end
