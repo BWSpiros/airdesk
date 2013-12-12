@@ -48,6 +48,7 @@ test:
 
 production:
   adapter: postgresql
+  host: wanderdesk.herokuapp.com
   encoding: unicode
   database: wanderdesk_production
   pool: 5
