@@ -1,10 +1,10 @@
 <%= form_for(@office) do |f| %>
-  <% if @office.errors.any? %>
+  <% if flash[:errors].any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@office.errors.count, "error") %> prohibited this office from being saved:</h2>
+      <h2><%= pluralize(flash[:errors].count, "error") %> prohibited this office from being saved:</h2>
 
       <ul>
-      <% @office.errors.full_messages.each do |msg| %>
+      <% flash[:errors].each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -51,7 +51,24 @@
     <%= f.label :arrangement %><br />
     <%= f.text_field :arrangement %>
   </div>
+
+  <%= fields_for :availability do |a| %>
+
+    <div class="field">
+      <%= a.label :start_date %><br />
+      <%= a.date_select :start_date %>
+    </div>
+    <div class="field">
+      <%= a.label :end_date %><br />
+      <%= a.date_select :end_date %>
+    </div>
+
+  <% end %>
+
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>

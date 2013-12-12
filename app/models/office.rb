@@ -13,4 +13,10 @@ class Office < ActiveRecord::Base
   primary_key: :id
   )
 
+  has_many(:availabilities,
+  class_name: "Availability",
+  foreign_key: :office_id,
+  primary_key: :id
+  )
+
 end

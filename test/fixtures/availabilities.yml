@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  office_id: 1
+  start_date: 2013-12-11
+  end_date: 2013-12-11
+
+two:
+  office_id: 1
+  start_date: 2013-12-11
+  end_date: 2013-12-11

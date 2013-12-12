@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131211210120) do
+ActiveRecord::Schema.define(:version => 20131211225152) do
+
+  create_table "availabilities", :force => true do |t|
+    t.integer  "office_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "favorites", :force => true do |t|
     t.integer  "user_id"

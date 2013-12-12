@@ -1,13 +1,11 @@
 Wanderdesk::Application.routes.draw do
 
   resources :offices
-  resources :users do
-    resources :favorites, only: [:index]
-  end
+  resources :users
   resource :session
-  resources :favorites, only: [:create]
+  resources :favorites, only: [:create, :index]
 
-  root to: "users#index"
+  root to: "offices#index"
 
 
   # The priority is based upon order of creation:
