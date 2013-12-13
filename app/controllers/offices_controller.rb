@@ -17,6 +17,7 @@ class OfficesController < ApplicationController
   def show
     @office = Office.find(params[:id])
     @availabilities = @office.availabilities
+    @features = @office.features
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,6 +28,7 @@ class OfficesController < ApplicationController
   def new
     @office = Office.new
     @availabilities = [Availability.new]
+    @features = Feature.all
     respond_to do |format|
       format.html
       format.json { render json: @office }
@@ -39,23 +41,28 @@ class OfficesController < ApplicationController
   end
 
   def create
-
     begin
       ActiveRecord::Base.transaction do
         @office = Office.new(params[:office])
         @office.owner_id = current_user.id
         @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)}
+        @feats = (params[:features])[1..-1].map{|f| Feature.find(f)} # First value always blank?
         @office.save
-        @availabilities.keep_if{|a| !a.start_date.nil? && !a.end_date.nil? }
 
+        @office.features = @feats
+
+        current_feats = @office.featurings
+        @feats.each {|f| }
+
+        @availabilities.keep_if{|a| !a.start_date.nil? && !a.end_date.nil? }
         @availabilities.each {|av| av.office = @office; av.save}
 
         raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
 
       end
-    rescue
-      flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten.full_messages
-      render :new
+    # rescue
+    #   flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten.full_messages
+    #   render :new
     else
       redirect_to root_url
     end

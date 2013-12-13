@@ -62,11 +62,31 @@
   <%= @office.arrangement %>
 </p>
 
+<b>Features</b>
+<div class="featureBox group">
+
+  <% @features.each do |feat| %>
+  <div class="featureCheck">
+    <div class="delete-button"><%= button_to "",
+       Featuring.find_by_office_id_and_feature_id(@office.id, feat.id),
+       method: :delete, class: "killFeature",
+       data: {confirm: "Are you sure?"} if (current_user.id == @office.owner_id)%>
+    </div>
+
+    <label>
+      <%= feat.feature_name %>
+    </label>
+  </div>
+  <% end %>
+
+</div>
+
+
 <% unless @availabilities.nil? %>
   <% @availabilities.each_with_index do |availability, ai| %>
     <p>
       <b>Availability <%= ai+1 %>:</b>
-      <%= availability.start_date %> to <%= availability.end_date %> <%= link_to "Delete!", availability, method: :delete, data: {confirm: "Are you sure?"} %>
+      <%= availability.start_date %> to <%= availability.end_date %> <%= link_to "Delete!", availability, method: :delete, data: {confirm: "Are you sure?"} if (current_user.id == @office.owner_id) %>
     </p>
   <% end %>
 <% end %>

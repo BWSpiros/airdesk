@@ -19,4 +19,12 @@ class Office < ActiveRecord::Base
   primary_key: :id
   )
 
+  has_many(:featurings,
+  class_name: "Featuring",
+  foreign_key: :office_id,
+  primary_key: :id
+  )
+
+  has_many(:features, through: :featurings, source: :feature )
+
 end

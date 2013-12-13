@@ -5,6 +5,8 @@ Wanderdesk::Application.routes.draw do
   resource :session
   resources :favorites, only: [:create, :index]
   resources :availabilities
+  resources :features
+  resources :featurings
   resources :tags
 
   root to: "offices#index"

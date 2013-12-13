@@ -41,6 +41,22 @@
     <label for="office_arrangement">Arrangement</label><br />
     <input id="office_arrangement" name="office[arrangement]" size="30" type="text" value="<%= @office.arrangement %>"/>
   </div>
+  <div>
+    <p>Features</p>
+      <input type="hidden" name="features[]"></input>
+      <div class="featureBox group">
+        <% @features.each do |feat| %>
+        <div class="featureCheck">
+          <label>
+            <input type="checkbox" name="features[]" id="<%= feat.feature_name %>" value="<%=feat.id %>"><%= feat.feature_name %></input>
+          </label>
+        </div>
+        <% end %>
+      </div>
+  </div>
+
+
+
 
   <% @availabilities.each_with_index do |a, aindex| %>
   <h3>Availability <%= aindex+1 %></h3>
