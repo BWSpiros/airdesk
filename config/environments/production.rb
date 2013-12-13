@@ -64,4 +64,15 @@ Wanderdesk::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => "wanderdesk",
+      :access_key_id => "AKIAI3Y6J5G343MX6J2A",
+      :secret_access_key => "IgIgmOFp+DxfycLTFL8aIVnHU03Ae0DduJi5pyZa",
+      # :s3_host_name => 's3-us-west-1.amazonaws.com' # or whatever your region host name is
+    }
+  }
+
 end

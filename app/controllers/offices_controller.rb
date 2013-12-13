@@ -19,6 +19,7 @@ class OfficesController < ApplicationController
     @office = Office.find(params[:id])
     @availabilities = @office.availabilities
     @features = @office.features
+    @photos = @office.photos[0]
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,6 +31,7 @@ class OfficesController < ApplicationController
     @office = Office.new
     @availabilities = [Availability.new]
     @features = Feature.all
+    @current_features = []
     respond_to do |format|
       format.html
       format.json { render json: @office }
@@ -46,16 +48,17 @@ class OfficesController < ApplicationController
   def create
     begin
       ActiveRecord::Base.transaction do
+        # fail
         @office = Office.new(params[:office])
         @office.owner_id = current_user.id
         @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)}
         @feats = (params[:features])[1..-1].map{|f| Feature.find(f)} # First value always blank?
         @office.save
-
+        @office.photos = [Photo.create({picture: params[:photos][:picture], office_id: @office.id})]
         @office.features = @feats
 
         current_feats = @office.featurings
-        @feats.each {|f| }
+        # @feats.each {|f| }
 
         @availabilities.keep_if{|a| !a.start_date.nil? && !a.end_date.nil? }
         @availabilities.each {|av| av.office = @office; av.save}

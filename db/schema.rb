@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212192607) do
+ActiveRecord::Schema.define(:version => 20131213200554) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "office_id"
@@ -62,6 +62,16 @@ ActiveRecord::Schema.define(:version => 20131212192607) do
     t.string   "arrangement"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "photos", :force => true do |t|
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "office_id"
   end
 
   create_table "taggings", :force => true do |t|

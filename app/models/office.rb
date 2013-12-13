@@ -27,4 +27,11 @@ class Office < ActiveRecord::Base
 
   has_many(:features, through: :featurings, source: :feature )
 
+  has_many(:photos,
+  class_name: "Photo",
+  foreign_key: :office_id,
+  primary_key: :id
+  )
+
+
 end

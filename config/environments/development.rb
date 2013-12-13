@@ -35,5 +35,13 @@ Wanderdesk::Application.configure do
   # Expands the lines which load the assets
   # Re-expand when doing Backbone if you don't want life to suck
   # config.assets.debug = true
-
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => "wanderdesk",
+      :access_key_id => "AKIAI3Y6J5G343MX6J2A",
+      :secret_access_key => "IgIgmOFp+DxfycLTFL8aIVnHU03Ae0DduJi5pyZa",
+      # :s3_host_name => 's3-us-west-1.amazonaws.com' # or whatever your region host name is
+    }
+  }
 end
