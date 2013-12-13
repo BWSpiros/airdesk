@@ -6,7 +6,8 @@ class OfficesController < ApplicationController
 
 
   def index
-    @offices = Office.all
+
+    @offices = Office.last(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,6 +39,8 @@ class OfficesController < ApplicationController
   def edit
     @office = Office.find(params[:id])
     @availabilities = @office.availabilities + [Availability.new]
+    @features = Feature.all
+    @current_features = @office.features.map{|f| f.id}
   end
 
   def create

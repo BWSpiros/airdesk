@@ -48,7 +48,7 @@
         <% @features.each do |feat| %>
         <div class="featureCheck">
           <label>
-            <input type="checkbox" name="features[]" id="<%= feat.feature_name %>" value="<%=feat.id %>"><%= feat.feature_name %></input>
+            <input type="checkbox" name="features[]" id="<%= feat.feature_name %>" value="<%=feat.id %>" <%= "checked" if @current_features.include? feat.id %>><%= feat.feature_name %> </input>
           </label>
         </div>
         <% end %>
