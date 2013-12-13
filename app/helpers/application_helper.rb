@@ -1,5 +1,6 @@
 module ApplicationHelper
   def current_user
+    p @current_user
     return @current_user || @current_user = User.find_by_session(session[:token])
   end
 

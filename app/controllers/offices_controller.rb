@@ -90,6 +90,7 @@ class OfficesController < ApplicationController
       ActiveRecord::Base.transaction do
         @office = Office.find(params[:id])
         @office.update_attributes(params[:office])
+
         @feats = (params[:features])[1..-1].map{|f| Feature.find(f)} # First value always blank?
         @office.features = @feats
         photo = [Photo.create({picture: params[:photos][:picture], office_id: @office.id})] if params[:photos]
