@@ -90,6 +90,11 @@ class OfficesController < ApplicationController
       ActiveRecord::Base.transaction do
         @office = Office.find(params[:id])
         @office.update_attributes(params[:office])
+        @feats = (params[:features])[1..-1].map{|f| Feature.find(f)} # First value always blank?
+        @office.features = @feats
+        photo = [Photo.create({picture: params[:photos][:picture], office_id: @office.id})] if params[:photos]
+        @office.photos = photo if photo
+
 
         @availabilities = params[:availabilities].map do |_, av_params|
           if av_params[:id]
@@ -111,9 +116,9 @@ class OfficesController < ApplicationController
 
       raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
       end
-    rescue
-      flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
-      render :new
+    # rescue
+    #   flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
+    #   render :new
     else
       redirect_to root_url
     end
