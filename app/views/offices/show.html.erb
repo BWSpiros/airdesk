@@ -34,7 +34,11 @@
 
 
   <section class="primary-image group">
-    <%= image_tag @photos.picture.url(:profile) %>
+    <% if @photos %>
+      <%= image_tag @photos.picture.url(:profile) %>
+    <% else %>
+      <%= image_tag "default-image.gif" %>
+    <% end %>
   </section>
 </div>
 

@@ -54,7 +54,9 @@ class OfficesController < ApplicationController
         @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)}
         @feats = (params[:features])[1..-1].map{|f| Feature.find(f)} # First value always blank?
         @office.save
-        @office.photos = [Photo.create({picture: params[:photos][:picture], office_id: @office.id})]
+        if params[:photos]
+          @office.photos = [Photo.create({picture: params[:photos][:picture], office_id: @office.id})]
+        end
         @office.features = @feats
 
         current_feats = @office.featurings

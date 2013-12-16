@@ -126,14 +126,13 @@
   height: 280px;
   width: 280px;
   float: left;
-  border: 1px solid black;
+  border-radius: 10px;
   overflow: hidden;
   background: whitesmoke;
 }
 
 
 .search-footer{
-//  float: left;
   margin-left: 10px;
 }
 
@@ -141,9 +140,10 @@
   height: auto;
   width: auto;
   overflow: hidden;
+  margin: auto;
 }
 
-.search-image > img{
+.search-image > a >img{
   display: block;
   margin: auto;
   margin-bottom: 10px;
