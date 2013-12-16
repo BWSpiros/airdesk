@@ -47,9 +47,12 @@ nav {
   top: 0;
   width: 100%;
   margin-bottom: 50px;
+  margin-top: -2px;
+  box-shadow: inset 0 1px #fff, 0 1px 4px rgba(34,25,25,0.4);
+
 }
 
-nav > ul> li {
+nav > ul > li {
   height: 50px;
   line-height: 50px;
   float: right;
@@ -59,7 +62,7 @@ nav > ul> li {
 }
 
 .content {
-  width: 950px;
+  width: 80%;
   margin: auto;
   margin-top: 60px;
 }
