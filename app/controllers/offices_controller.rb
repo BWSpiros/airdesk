@@ -1,6 +1,6 @@
 class OfficesController < ApplicationController
-
-  skip_before_filter :check_logged_in, only: [:index,:show]
+  include OfficesHelper
+  skip_before_filter :check_logged_in, only: [:index,:show, :find]
 
   before_filter :has_access, only: [:edit, :destroy, :update]
 
@@ -26,21 +26,35 @@ class OfficesController < ApplicationController
     # To seriously refactor!
 
     if params[:search_params]
+
+      to_search = ["SELECT * FROM offices"]
       if params[:search_params][:city] != ""
         city = params[:search_params][:city]
         search_params << ["city LIKE '%#{city}%'"]
       end
+
       if params[:search_params][:price] != ""
         price = params[:search_params][:price]
         search_params << ["price < #{price}"]
       end
+      if params[:search_params][:features] != [nil]
+        query = build_ridiculous_query((params[:search_params][:features])[1..-1])
+
+        search_params = search_params.join(" AND ")
+        to_search = ["SELECT * FROM (#{query}) as features"]+(params[:search_params][:features])[1..-1]
+        to_search[0] += " WHERE #{search_params} " if !search_params.empty?
+
+      elsif !search_params.empty?
+       to_search = ("SELECT * FROM offices WHERE "+ search_params.join(" AND ")).to_s
+
+     end
     end
 
-    search_params = search_params.join(" AND ")
+
     # epic fail
     # Need to refactor the keep_if below to be a proper SQL query
 
-    @offices = Office.where(search_params).order("created_at DESC")
+    @offices = Office.find_by_sql(to_search)#.order("created_at DESC")
     @offices.keep_if{|o| (o.features.map{|f| f.id}. & @current_features) == @current_features }
     @current_features.map!{|f| f.to_s}
     # fail

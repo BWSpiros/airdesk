@@ -8,6 +8,8 @@ gem 'rails', '3.2.15'
 gem 'pg'
 gem 'paperclip'
 gem 'aws-sdk'
+gem 'arel'
+
 
 group :development do
   gem 'better_errors'

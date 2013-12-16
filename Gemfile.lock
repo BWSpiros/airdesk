@@ -127,6 +127,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  arel
   aws-sdk
   bcrypt-ruby (~> 3.0.0)
   better_errors

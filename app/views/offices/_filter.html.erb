@@ -1,10 +1,10 @@
 <form action="<%= offices_find_url %>" method="post">
   <%= auth %>
   <label> City:
-      <input type="text" name="search_params[city]">
+      <input type="text" name="search_params[city]" <%= "value=#{params[:search_params][:city]}" if params[:search_params] %>>
   </label>
   <label>Max Price
-    <input type="integer" name="search_params[price]">
+    <input type="integer" name="search_params[price]" <%= "value=#{params[:search_params][:price]}" if params[:search_params] %>>
   </label>
   <input type="submit" value="Filter">
 
