@@ -102,7 +102,7 @@
     <% @availabilities.each_with_index do |availability, ai| %>
       <p>
         <b>Availability <%= ai+1 %>:</b>
-        <%= availability.start_date %> to <%= availability.end_date %> <%= link_to "Delete!", availability, method: :delete, data: {confirm: "Are you sure?"} if (current_user.id == @office.owner_id) %>
+        <%= availability.start_date %> to <%= availability.end_date %> <%= link_to "Delete!", availability, method: :delete, data: {confirm: "Are you sure?"} if (logged_in? && current_user.id == @office.owner_id) %>
       </p>
     <% end %>
   <% end %>
