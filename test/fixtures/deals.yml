@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  owner_id: 1
+  renter_id: 1
+  office_id: 1
+  owner_approval: false
+  renter_approval: false
+  start_date: 2013-12-16
+  end_date: 2013-12-16
+  price: 1
+
+two:
+  owner_id: 1
+  renter_id: 1
+  office_id: 1
+  owner_approval: false
+  renter_approval: false
+  start_date: 2013-12-16
+  end_date: 2013-12-16
+  price: 1

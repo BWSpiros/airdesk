@@ -3,6 +3,7 @@ Wanderdesk::Application.routes.draw do
   resources :offices
   match 'offices/find' => 'offices#find'
   resources :users
+  resources :deals
   resource :session
   resources :favorites, only: [:create, :index]
   resources :availabilities

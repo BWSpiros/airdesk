@@ -1,0 +1,8 @@
+<h1>Your Deals</h1>
+<ul>
+<% @deals.each do |deal| %>
+<li>
+  <%= link_to deal.office.title, edit_deal_url(deal) %>
+</li>
+<% end %>
+</ul>

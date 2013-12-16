@@ -1,0 +1,53 @@
+  <!-- attr_accessible :end_date, :office_id, :owner_approval, :owner_id, :price, :renter_approval, :renter_id, :start_date -->
+  <% owner = (current_user.id == @deal.owner_id) %>
+  <% other_approved = owner ? @deal.renter_approval : @deal.owner_approval %>
+  <% current_user_approved = owner ? @deal.owner_approval : @deal.renter_approval %>
+  <form action="<%= deal_url(@deal.id) %>" method="post">
+    <%= auth %>
+    <input type="hidden" name="_method" value="put">
+    <p>
+      <label>
+        Owner: <%= @deal.owner.name %>
+      </label>
+    </p>
+    <p>
+      <label>
+        Renter: <%= @deal.renter.name %>
+      </label>
+    </p>
+    <p>
+      <label>
+        Office: <%= @office.title %>
+      </label>
+    </p>
+    <p>
+      <%= @office.description %>
+    </p>
+    <p>
+      <label>
+        Approve?
+        <input type="checkbox" name="<%= owner ? "deal[owner_approval]" : "deal[renter_approval]"%>" <%= "checked" if current_user_approved %>>
+      </label>
+      <p><b>
+        <%= owner ? "Renter " : "Owner "%> has <%= other_approved ? " approved this deal." : "not approved this deal." %>
+      </b></p>
+    </p>
+    <p>
+      <label>Price
+        <input type="integer" name="deal[price]" <%= "value=#{@deal.price}" if @deal.price %> >
+      </label>
+    </p>
+    <p>
+
+      <label>Start Date
+        <input type="date" name="deal[start_date]" <%= "value=#{@deal.start_date}" if @deal.start_date %>>
+      </label>
+    </p>
+    <p>
+      <label>End Date
+        <input type="date" name="deal[end_date]" <%= "value=#{@deal.end_date}" if @deal.end_date %>>
+      </label>
+    </p>
+    <input type="submit" value="Update Deal!">
+
+  </form>

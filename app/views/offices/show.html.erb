@@ -98,7 +98,8 @@
   </div>
 
 
-  <% unless @availabilities.nil? %>
+  <% unless @availabilities.empty? || deal_open?(@office.id) || current_user.id == @office.owner_id %>
+  <%= button_to "Arrange a Rental!", {controller: "deals", action: "create", office_id: @office.id }, {office_id: @office.id, class: "rental-button"} %>
     <% @availabilities.each_with_index do |availability, ai| %>
       <p>
         <b>Availability <%= ai+1 %>:</b>

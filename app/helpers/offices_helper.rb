@@ -12,6 +12,13 @@ module OfficesHelper
     end
   end
 
+  def deal_open?(office_id)
+    return true if Deal.find_by_office_id_and_owner_id(office_id, current_user.id)
+    return true if Deal.find_by_office_id_and_renter_id(office_id, current_user.id)
+    false
+  end
+
+
 end
 
 # "SELECT DISTINCT offices.* FROM offices JOIN featurings ON featurings.office_id = offices.id JOIN (SELECT DISTINCT offices.* FROM offices

@@ -33,6 +33,12 @@ class Office < ActiveRecord::Base
   primary_key: :id
   )
 
+  has_many(:deals,
+  class_name: "Deal",
+  foreign_key: :office_id,
+  primary_key: :id
+  )
+
 
   def free?(start, finish)
 
