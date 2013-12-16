@@ -6,6 +6,9 @@
   <label>Max Price
     <input type="integer" name="search_params[price]" <%= "value=#{params[:search_params][:price]}" if params[:search_params] %>>
   </label>
+  <label>Spaces Needed
+    <input type="integer" class="small-field" name="search_params[occupancy]" <%= "value=#{params[:search_params][:occupancy]}" if params[:search_params] %>>
+  </label>
   <input type="submit" value="Filter">
 
   <div>
