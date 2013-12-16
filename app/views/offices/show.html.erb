@@ -1,7 +1,7 @@
 
 <div class="listing-header group">
   <p id="notice"><%= notice %></p>
-  <div class="listing-title">
+  <div class="listing-title group">
     <div class="address-block group">
       <b>Title:
       <%= @office.title %>
@@ -26,82 +26,83 @@
     </div>
     <% if current_user && !Favorite.find_by_user_id_and_office_id(current_user.id, @office.id)%>
 
-      <%= button_to "Track this Listing", {controller: "favorites", action: "create", office_id: @office.id}, {class: "track-button"} %>
+      <%= button_to "Track this Listing", {controller: "favorites", action: "create", office_id: @office.id}, {class: "track-button group"} %>
 
     <% end %>
 
   </div>
 
 
-  <section class="primary-image">
+  <section class="primary-image group">
     <%= image_tag @photos.picture.url(:profile) %>
   </section>
 </div>
 
+<div class="listing-body group">
 
+  <p>
+    <b>Description:</b>
+    <%= @office.description %>
+  </p>
 
-<p>
-  <b>Description:</b>
-  <%= @office.description %>
-</p>
+  <p>
+    <b>Size:</b>
+    <%= @office.size %>
+  </p>
 
-<p>
-  <b>Size:</b>
-  <%= @office.size %>
-</p>
+  <p>
+    <b>Owner:</b>
+    <%= @office.owner_id %>
+  </p>
 
-<p>
-  <b>Owner:</b>
-  <%= @office.owner_id %>
-</p>
+  <p>
+    <b>Available:</b>
+    <%= @office.available %>
+  </p>
 
-<p>
-  <b>Available:</b>
-  <%= @office.available %>
-</p>
+  <p>
+    <b>Occupancy:</b>
+    <%= @office.occupancy %>
+  </p>
 
-<p>
-  <b>Occupancy:</b>
-  <%= @office.occupancy %>
-</p>
+  <p>
+    <b>Price:</b>
+    <%= @office.price %>
+  </p>
 
-<p>
-  <b>Price:</b>
-  <%= @office.price %>
-</p>
+  <p>
+    <b>Arrangement:</b>
+    <%= @office.arrangement %>
+  </p>
 
-<p>
-  <b>Arrangement:</b>
-  <%= @office.arrangement %>
-</p>
+  <b>Features</b>
+  <div class="featureBox group">
 
-<b>Features</b>
-<div class="featureBox group">
+    <% @features.each do |feat| %>
+    <div class="featureCheck">
+      <%= (button_to "",
+         Featuring.find_by_office_id_and_feature_id(@office.id, feat.id),
+         method: :delete, class: "killFeature delete-button",
+         data: {confirm: "Are you sure?"} ) if (current_user.id == @office.owner_id)%>
 
-  <% @features.each do |feat| %>
-  <div class="featureCheck">
-    <%= (button_to "",
-       Featuring.find_by_office_id_and_feature_id(@office.id, feat.id),
-       method: :delete, class: "killFeature delete-button",
-       data: {confirm: "Are you sure?"} ) if (current_user.id == @office.owner_id)%>
+      <label>
+        <%= feat.feature_name %>
+      </label>
+    </div>
+    <% end %>
 
-    <label>
-      <%= feat.feature_name %>
-    </label>
   </div>
+
+
+  <% unless @availabilities.nil? %>
+    <% @availabilities.each_with_index do |availability, ai| %>
+      <p>
+        <b>Availability <%= ai+1 %>:</b>
+        <%= availability.start_date %> to <%= availability.end_date %> <%= link_to "Delete!", availability, method: :delete, data: {confirm: "Are you sure?"} if (current_user.id == @office.owner_id) %>
+      </p>
+    <% end %>
   <% end %>
 
+  <%= link_to 'Edit', edit_office_path(@office) %> |
+  <%= link_to 'Back', offices_path %>
 </div>
-
-
-<% unless @availabilities.nil? %>
-  <% @availabilities.each_with_index do |availability, ai| %>
-    <p>
-      <b>Availability <%= ai+1 %>:</b>
-      <%= availability.start_date %> to <%= availability.end_date %> <%= link_to "Delete!", availability, method: :delete, data: {confirm: "Are you sure?"} if (current_user.id == @office.owner_id) %>
-    </p>
-  <% end %>
-<% end %>
-
-<%= link_to 'Edit', edit_office_path(@office) %> |
-<%= link_to 'Back', offices_path %>

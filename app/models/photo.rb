@@ -6,7 +6,7 @@ class Photo < ActiveRecord::Base
     big: "600x600>",
     profile: "400x400>",
     thumbnail: "64x64>",
-    search: "620x434>"
+    search: "312x208"
   }
 
   belongs_to(:office,

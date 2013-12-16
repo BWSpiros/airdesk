@@ -1,42 +1,30 @@
-<h1>Listing offices</h1>
+<!-- <h1>Listing offices</h1> -->
 
-<section>
-
-
+<section class="filter-controls">
+  You'll be able to filter here soon!
+  <hr>
 </section>
 
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Addr1</th>
-    <th>City</th>
-    <th>Available</th>
-    <th>Occupancy</th>
-    <th>Price</th>
-    <th>Arrangement</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div class="tile-field group">
 <% @offices.each do |office| %>
-  <tr>
-    <td><%= link_to office.title, office %></td>
-    <td><%= office.addr1 %></td>
-    <td><%= office.city %></td>
-    <td><%= office.available %></td>
-    <td><%= office.occupancy %></td>
-    <td><%= office.price %></td>
-    <td><%= office.arrangement %></td>
-    <% if current_user && office.owner_id == current_user.id  %>
-      <td><%= link_to 'Edit', edit_office_path(office) %></td>
-      <td><%= link_to 'Destroy', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
-  </tr>
+  <div class="listing-tile group">
+    <div class="search-image">
+      <% if office.photos[0] != nil %>
+        <%= image_tag office.photos[0].picture.url(:search) %>
+      <% else %>
+        <%= image_tag "default-image.jpg" %>
+      <% end %>
+    </div>
+    <div class="search-footer group">
+      <p>
+        <%= office.title %>
+      </p>
+      <p>
+        $<%= office.price %>
+      </p>
+
+    </div>
+  </div>
 <% end %>
-</table>
+</div>
 
-<br />
-
-<%= link_to 'New Office', new_office_path %>
