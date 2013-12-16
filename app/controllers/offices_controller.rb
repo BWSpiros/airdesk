@@ -6,12 +6,22 @@ class OfficesController < ApplicationController
 
 
   def index
+    if request.post?
+      city = params[:city]
+      @offices = Office.where(city: city)
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @offices }
+      end
 
-    @offices = Office.last(10)
+    else
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @offices }
+      @offices = Office.last(10)
+
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @offices }
+      end
     end
   end
 
