@@ -34,4 +34,9 @@ class Office < ActiveRecord::Base
   )
 
 
+  def free?(start, finish)
+
+  end
+
+
 end

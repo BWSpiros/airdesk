@@ -1,0 +1,25 @@
+<form action="<%= offices_find_url %>" method="post">
+  <%= auth %>
+  <label> City:
+      <input type="text" name="search_params[city]">
+  </label>
+  <label>Max Price
+    <input type="integer" name="search_params[price]">
+  </label>
+  <input type="submit" value="Filter">
+
+  <div>
+    <p>Features</p>
+      <input type="hidden" name="search_params[features[]]"></input>
+      <div class="featureBox group">
+        <% @features.each do |feat| %>
+        <div class="featureCheck">
+          <label>
+            <input type="checkbox" name="search_params[features][]" id="<%= feat.feature_name %>" value="<%=feat.id %>" <%= "checked" if @current_features.include? feat.id.to_s %>><%= feat.feature_name %> </input>
+          </label>
+        </div>
+        <% end %>
+      </div>
+  </div>
+
+</form>

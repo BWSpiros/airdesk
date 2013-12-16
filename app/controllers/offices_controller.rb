@@ -6,22 +6,47 @@ class OfficesController < ApplicationController
 
 
   def index
-    if request.post?
-      city = params[:city]
-      @offices = Office.where(city: city)
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @offices }
+    @offices = Office.last(10)
+    @features = Feature.all
+    @current_features = params[:search_params] == nil ? [] : params[:search_params][:features]
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @offices }
+    end
+  end
+
+  def find
+
+    @features = Feature.all
+    @current_features = params[:search_params][:features] == nil ? [] : params[:search_params][:features][1..-1].map{|f| f.to_i}
+    # fail
+    search_params = []
+
+    # To seriously refactor!
+
+    if params[:search_params]
+      if params[:search_params][:city] != ""
+        city = params[:search_params][:city]
+        search_params << ["city LIKE '%#{city}%'"]
       end
-
-    else
-
-      @offices = Office.last(10)
-
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @offices }
+      if params[:search_params][:price] != ""
+        price = params[:search_params][:price]
+        search_params << ["price < #{price}"]
       end
+    end
+
+    search_params = search_params.join(" AND ")
+    # epic fail
+    # Need to refactor the keep_if below to be a proper SQL query
+
+    @offices = Office.where(search_params).order("created_at DESC")
+    @offices.keep_if{|o| (o.features.map{|f| f.id}. & @current_features) == @current_features }
+    @current_features.map!{|f| f.to_s}
+    # fail
+    respond_to do |format|
+      format.html { render "offices#index" => @offices}
+      format.json { render json: @offices }
     end
   end
 
