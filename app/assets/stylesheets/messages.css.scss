@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.conversation {
+  float: right;
+  width: 65%;
+  height: 300px;
+}
+
 
 .message-box {
   width: 100%;
@@ -24,18 +30,20 @@
 .individual-message {
   min-height: 20px;
   height: auto;
-  width: 100%;
+  width: 60%;
+  border-radius: 5px;
   float: left;
 }
 
 
 .renter {
-  text-align: right;
+  float: right;
+  text-align: center;
   background: lightblue;
 }
 
 .owner {
-  text-align: left;
+  text-align: center;
   background: lightgreen;
 }
 

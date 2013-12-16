@@ -19,13 +19,10 @@ class Message < ActiveRecord::Base
 
 
   def sending_party
-    return "owner" if self.sender_id == self.deal.owner
+    return "owner" if self.sender_id == self.deal.owner.id
     return "renter"
   end
 
-  def other_party
-    return self.sender_id unless self.sender_id = current_user.id
-    return self.receiver_id
-  end
+
 
 end
