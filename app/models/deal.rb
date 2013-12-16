@@ -19,4 +19,11 @@ class Deal < ActiveRecord::Base
   primary_key: :id
   )
 
+  has_many(:messages,
+  class_name: "Message",
+  foreign_key: :deal_id,
+  primary_key: :id
+  )
+
+
 end

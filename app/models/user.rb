@@ -17,21 +17,19 @@ class User < ActiveRecord::Base
   primary_key: :id
   )
 
+  has_many(:sent_messages,
+  class_name: "Message",
+  foreign_key: :sender_id,
+  primary_key: :id
+  )
+
+  has_many(:received_messages,
+  class_name: "Message",
+  foreign_key: :receiver_id,
+  primary_key: :id
+  )
+
   has_many :favorite_offices, through: :favorites, source: :office
-
-
-  has_many(:inbound_deals,
-  class_name: "Deal",
-  foreign_key: :owner_id,
-  primary_key: :id
-  )
-
-  has_many(:outbound_deals,
-  class_name: "Deal",
-  foreign_key: :renter_id,
-  primary_key: :id
-  )
-
 
 
   def self.find_by_credentials(email, password)

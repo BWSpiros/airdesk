@@ -2,6 +2,7 @@
   <% owner = (current_user.id == @deal.owner_id) %>
   <% other_approved = owner ? @deal.renter_approval : @deal.owner_approval %>
   <% current_user_approved = owner ? @deal.owner_approval : @deal.renter_approval %>
+  <div class="negotiation group">
   <form action="<%= deal_url(@deal.id) %>" method="post">
     <%= auth %>
     <input type="hidden" name="_method" value="put">
@@ -26,6 +27,7 @@
     <p>
       <label>
         Approve?
+
         <input type="checkbox" name="<%= owner ? "deal[owner_approval]" : "deal[renter_approval]"%>" <%= "checked" if current_user_approved %>>
       </label>
       <p><b>
@@ -51,3 +53,18 @@
     <input type="submit" value="Update Deal!">
 
   </form>
+</div>
+<div class="conversation group">
+  <div class="message-box group">
+    <form action="<%= deal_messages_url(@deal) %>" method="post">
+      <%= auth %>
+      <input type="submit" value="Send Message" class="send-message">
+      <textarea name="message[message_body]" class="message-field"></textarea>
+    </form>
+  </div>
+  <div class="conversation-history group">
+    <% @deal.messages.each do |message| %>
+    <div class="individual-message <%= message.sending_party %>"><%= message.message_body %></div>
+    <% end %>
+  </div>
+</div>

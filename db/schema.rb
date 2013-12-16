@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131216165019) do
+ActiveRecord::Schema.define(:version => 20131216220107) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "office_id"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(:version => 20131216165019) do
   end
 
   add_index "featurings", ["feature_id", "office_id"], :name => "index_featurings_on_feature_id_and_office_id", :unique => true
+
+  create_table "messages", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "deal_id"
+    t.text     "message_body"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "offices", :force => true do |t|
     t.string   "title"

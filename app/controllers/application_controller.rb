@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include ApplicationHelper
+  include DealsHelper
 
   before_filter :check_logged_in
 

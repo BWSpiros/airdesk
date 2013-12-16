@@ -84,7 +84,7 @@ input {
   margin-top: -5px;
 }
 
-input {
+input, textarea {
   background-color: whitesmoke;
   color: black;
   padding: 2px;
