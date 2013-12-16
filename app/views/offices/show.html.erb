@@ -87,7 +87,7 @@
       <%= (button_to "",
          Featuring.find_by_office_id_and_feature_id(@office.id, feat.id),
          method: :delete, class: "killFeature delete-button",
-         data: {confirm: "Are you sure?"} ) if (current_user.id == @office.owner_id)%>
+         data: {confirm: "Are you sure?"} ) if (logged_in? && current_user.id == @office.owner_id)%>
 
       <label>
         <%= feat.feature_name %>
