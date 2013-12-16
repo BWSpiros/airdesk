@@ -15,32 +15,64 @@
 //menu, nav, output, ruby, section, summary,
 //time, mark, audio, video,
 .delete-button {
-	margin: 0;
+	margin-right: 3px;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
 	font: Arial,sans-serif;
 	vertical-align: baseline;
+  border-radius: 2px;
 }
 
+.track-button {
+  background-color: green;
+  color: white;
+  padding: 6px;
+  border-radius: 8px;
+  margin: 5px;
+  border: solid black 2px;
+  opacity: .75;
+  float: left;
+  height: 30px;
+}
 
-.group {
-  content: "";
-  after: clear both;
+.listing-title {
+  width: auto;
+  float: left;
+}
+
+.primary-image {
+  float: left;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border: 2px black solid;
+  vertical-align: top;
   display: block;
 }
+
+.primary-image > img {
+  display: block;
+}
+
 
 .featureBox {
   border: 1px solid black ;
   width: 400px;
-  overflow: scroll;
+  overflow-y: scroll;
   height: 100px;
 
+}
+
+.listing-header {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  height: 150px;
 }
 
 .featureCheck {
   background: lightgray;
   margin: 5px 0px;
+  margin-left: 0px;
   padding: 0px 5px;
   border-radius: 5px;
   display: inline-block;
@@ -49,6 +81,16 @@
 .delete-button {
   height: 15px;
   width: 15px;
+  display: inline-block;
+  border-radius: 50px;
+  border: 1px gray solid;
+}
+
+.featureCheck > .button_to {
+  height: 15px;
+  width: 15px;
+  margin-right: 4px;
+  margin-left: -6px;
   display: inline-block;
 }
 

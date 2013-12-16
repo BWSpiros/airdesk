@@ -1,39 +1,48 @@
-<p id="notice"><%= notice %></p>
-<% if current_user && !Favorite.find_by_user_id_and_office_id(current_user.id, @office.id)%>
-  <%= button_to "Track this Listing", {controller: "favorites", action: "create", office_id: @office.id} %>
-<% end %>
-<section>
-  <%= image_tag @photos.picture.url(:profile) %>
-</section>
 
-<p>
-  <b>Title:</b>
-  <%= @office.title %>
-</p>
+<div class="listing-header group">
+  <p id="notice"><%= notice %></p>
+  <div class="listing-title">
+    <div class="address-block group">
+      <b>Title:
+      <%= @office.title %>
+      </b>
+      <p>
+        <%= @office.addr1 %>
+      </p>
+
+      <% if @office.addr2 %>
+      <p>
+        <%= @office.addr2 %>
+      </p>
+      <% end %>
+
+      <p>
+        <%= @office.city %>
+      </p>
+
+      <p>
+        <%= @office.zip %>
+      </p>
+    </div>
+    <% if current_user && !Favorite.find_by_user_id_and_office_id(current_user.id, @office.id)%>
+
+      <%= button_to "Track this Listing", {controller: "favorites", action: "create", office_id: @office.id}, {class: "track-button"} %>
+
+    <% end %>
+
+  </div>
+
+
+  <section class="primary-image">
+    <%= image_tag @photos.picture.url(:profile) %>
+  </section>
+</div>
+
+
 
 <p>
   <b>Description:</b>
   <%= @office.description %>
-</p>
-
-<p>
-  <b>Addr1:</b>
-  <%= @office.addr1 %>
-</p>
-
-<p>
-  <b>Addr2:</b>
-  <%= @office.addr2 %>
-</p>
-
-<p>
-  <b>City:</b>
-  <%= @office.city %>
-</p>
-
-<p>
-  <b>Zip:</b>
-  <%= @office.zip %>
 </p>
 
 <p>
@@ -71,11 +80,10 @@
 
   <% @features.each do |feat| %>
   <div class="featureCheck">
-    <div class="delete-button"><%= button_to "",
+    <%= (button_to "",
        Featuring.find_by_office_id_and_feature_id(@office.id, feat.id),
-       method: :delete, class: "killFeature",
-       data: {confirm: "Are you sure?"} if (current_user.id == @office.owner_id)%>
-    </div>
+       method: :delete, class: "killFeature delete-button",
+       data: {confirm: "Are you sure?"} ) if (current_user.id == @office.owner_id)%>
 
     <label>
       <%= feat.feature_name %>

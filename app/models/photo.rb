@@ -5,7 +5,8 @@ class Photo < ActiveRecord::Base
   has_attached_file :picture, styles: {
     big: "600x600>",
     profile: "400x400>",
-    thumbnail: "64x64>"
+    thumbnail: "64x64>",
+    search: "620x434>"
   }
 
   belongs_to(:office,

@@ -11,3 +11,77 @@
  *= require_self
  *= require_tree .
  */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input, button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: Arial,sans-serif;
+	vertical-align: baseline;
+}
+
+.group {
+  content: "";
+  after: clear both;
+  display: block;
+}
+
+nav {
+  background: lightgray;
+  border: 4px;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+nav > ul> li {
+  height: 50px;
+  line-height: 50px;
+  float: right;
+  display: block;
+  padding: 10px 10px;
+  font: 13px/27px Arial,sans-serif;
+}
+
+.content {
+  border: solid: solid black;
+  width: 700px;
+  margin: auto;
+  margin-top: 60px;
+}
+
+input {
+  border: 1px solid lightgray;
+}
+
+.brand {
+  float: left;
+  border-left: 0;
+  height: 50px;
+  width: auto;
+  margin-top: -5px;
+}
+
+input {
+  background-color: whitesmoke;
+  color: black;
+  padding: 2px;
+  border-radius: 8px;
+  margin: 5px;
+  border: solid black 2px;
+}
