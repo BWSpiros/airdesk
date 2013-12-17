@@ -9,6 +9,7 @@ gem 'pg'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'arel'
+gem 'geocoder'
 
 
 group :development do
