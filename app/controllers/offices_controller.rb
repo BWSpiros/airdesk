@@ -38,7 +38,7 @@ class OfficesController < ApplicationController
 
       if params[:search_params][:price] != ""
         price = params[:search_params][:price]
-        search_params << ["price < #{price}"]
+        search_params << "price < #{price}"
       end
       if params[:search_params][:features] != [nil]
 
@@ -49,8 +49,9 @@ class OfficesController < ApplicationController
         to_search[0] += " WHERE #{search_params} " if !search_params.empty?
 
       elsif !search_params.empty?
-
-      to_search[0] = ("(SELECT * FROM \"offices\" as main WHERE "+ search_params).to_s + ")"
+        # fail
+      search_params = search_params.flatten.join(" AND ") if search_params.is_a? Array
+      to_search[0] = ("(SELECT * FROM \"offices\" as main WHERE "+ search_params.to_s + ")")
 
       end
     end
@@ -62,7 +63,8 @@ class OfficesController < ApplicationController
       to_search[0] = Office.near(locator, radius).to_sql.gsub("FROM \"offices\"", "FROM (" + to_search[0]+" as otheroffices) as offices")
       @offices = Office.find_by_sql(to_search)
     else
-      to_search[0] = search_params.join(" AND ").to_s
+      to_search[0] = ((search_params.is_a? Array) ? search_params.join(" AND ").to_s : search_params)
+
       @offices = Office.where(to_search).near(locator, radius)
     end
 

@@ -4,13 +4,13 @@
   <input type="submit" value="Filter" class="filter-button">
 
   <div class="form-item">
-    <label for="city-input"> City
-        <input type="text" id="city-input" name="search_params[city]" <%= "value=#{params[:search_params][:city]}" if params[:search_params] %>>
+    <label for="city-input"> Location or City
+        <input type="text" id="city-input" name="search_params[city]" value="<%= params[:search_params][:city] if params[:search_params] %>">
   </div>
 
   <div class="form-item">
     <label>Max Price
-      <input type="integer" name="search_params[price]" <%= "value=#{params[:search_params][:price]}" if params[:search_params] %>>
+      <input type="integer" name="search_params[price]" value="<%= params[:search_params][:price] if params[:search_params] && params[:search_params][:price] %>">
     </label>
 
   </div>
@@ -23,12 +23,12 @@
 
   <div class="form-item">
     <label>Distance (mi)
-      <input type="integer" name="acceptable_range">
+      <input type="integer" name="acceptable_range" value="<%= params[:acceptable_range] if params[:acceptable_range]%>" %>>>
     </label>
   </div>
 
   <label>Features
-    <input type="hidden" name="search_params[features[]]">
+    <input type="hidden" name="search_params[features[]]" >
 
     <div class="featureBox group">
 
