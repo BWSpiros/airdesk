@@ -114,10 +114,11 @@ class OfficesController < ApplicationController
   def create
     begin
       ActiveRecord::Base.transaction do
-        # fail
+
+        @availabilities = []
         @office = Office.new(params[:office])
         @office.owner_id = current_user.id
-        @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)}
+        @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)} || []
         @feats = (params[:features])[1..-1].map{|f| Feature.find(f)} # First value always blank?
         @office.save
         if params[:photos]
@@ -126,7 +127,6 @@ class OfficesController < ApplicationController
         @office.features = @feats
 
         current_feats = @office.featurings
-        # @feats.each {|f| }
 
         @availabilities.keep_if{|a| !a.start_date.nil? && !a.end_date.nil? }
         @availabilities.each {|av| av.office = @office; av.save}
@@ -134,9 +134,11 @@ class OfficesController < ApplicationController
         raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
 
       end
-    # rescue
-    #   flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten.full_messages
-    #   render :new
+    rescue
+      flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
+      @features = Feature.all
+      @current_features = []
+      render :new
     else
       redirect_to root_url
     end

@@ -1,6 +1,10 @@
 class Office < ActiveRecord::Base
   attr_accessible :addr1, :addr2, :arrangement, :available, :city, :state, :description, :occupancy, :owner_id, :price, :size, :title, :zip, :longitude, :latitude
 
+  validates :title, :longitude, :price, :arrangement, :occupancy, presence: true
+  validates :price, numericality: { greater_than: 0, less_than: 100000}
+  validates :occupancy, numericality: { greater_than: 0, less_than: 100}
+
   geocoded_by :address
 
   reverse_geocoded_by :latitude, :longitude do |o, res|
@@ -11,7 +15,7 @@ class Office < ActiveRecord::Base
     end
   end
 
-  after_validation :geocode
+  before_validation :geocode
   before_create :reverse_geocode
 
   before_update :geocode

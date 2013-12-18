@@ -12,7 +12,8 @@ class MessagesController < ApplicationController
     if @message.save
       redirect_to edit_deal_url(@message.deal)
     else
-      render :new
+      flash[:errors] = "Message must be between 2 and 400 characters."
+      redirect_to edit_deal_url(params[:deal_id])
     end
 
   end

@@ -15,6 +15,18 @@ class User < ActiveRecord::Base
   primary_key: :id
   )
 
+  has_many(:in_deals,
+  class_name: "Deal",
+  foreign_key: :owner_id,
+  primary_key: :id
+  )
+
+  has_many(:out_deals,
+  class_name: "Deal",
+  foreign_key: :renter_id,
+  primary_key: :id
+  )
+
   has_many(:favorites,
   class_name: "Favorite",
   foreign_key: :user_id,
@@ -65,6 +77,10 @@ class User < ActiveRecord::Base
 
   def is_password?(pass)
     BCrypt::Password.new(self.password_digest).is_password?(pass)
+  end
+
+  def deals
+    in_deals + out_deals
   end
 
 

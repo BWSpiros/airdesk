@@ -1,6 +1,9 @@
 class Message < ActiveRecord::Base
   attr_accessible :deal_id, :message_body, :receiver_id, :sender_id
 
+  validates :message_body, presence: true
+  validates :message_body, length: {minimum: 2, maximum: 400}
+
   belongs_to(:deal,
   class_name: "Deal",
   foreign_key: :deal_id,

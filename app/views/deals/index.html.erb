@@ -2,6 +2,7 @@
 <ul>
 <% @deals.each do |deal| %>
 <li>
+  <% next if deal.office == nil %>
   <%= link_to deal.office.title, edit_deal_url(deal) %>
 </li>
 <% end %>

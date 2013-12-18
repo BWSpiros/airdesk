@@ -1,7 +1,7 @@
 class DealsController < ApplicationController
 
   def index
-    @deals = Deal.find_all_by_owner_id(current_user.id) + Deal.find_all_by_renter_id(current_user.id)
+    @deals = current_user.deals
   end
 
   def show
