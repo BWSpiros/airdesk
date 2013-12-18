@@ -8,6 +8,8 @@
 </head>
 <body>
   <%= current_user.ip_address if current_user %>
+  <%= request.remote_ip %>
+  <%= request.location.coordinates || "fuck" %>
   <nav class="group">
     <ul>
       <% if logged_in? %>
