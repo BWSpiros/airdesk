@@ -6,7 +6,7 @@ class OfficesController < ApplicationController
 
 
   def index
-    @offices =  (current_user && current_user.geocoded?) ? Office.near([current_user.latitude, current_user.longitude], 36000).last(10) : Office.near(request.location, 36000).last(10)
+    @offices =  (current_user && current_user.geocoded?) ? Office.near([current_user.latitude, current_user.longitude], 36000).last(10) : Office.last(10)
     @features = Feature.all
     @current_features = params[:search_params] == nil ? [] : params[:search_params][:features]
 
