@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
   validates :password, length: {minimum: 6}
   validates_presence_of :password, :email, :name
 
+  geocoded_by :ip_address
+  after_validation :geocode
+
+
   has_many(:offices,
   class_name: "Office",
   foreign_key: :owner_id,

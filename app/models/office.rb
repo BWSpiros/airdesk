@@ -1,5 +1,8 @@
 class Office < ActiveRecord::Base
-  attr_accessible :addr1, :addr2, :arrangement, :available, :city, :description, :occupancy, :owner_id, :price, :size, :title, :zip
+  attr_accessible :addr1, :addr2, :arrangement, :available, :city, :state, :description, :occupancy, :owner_id, :price, :size, :title, :zip, :longitude, :latitude
+
+  geocoded_by :address
+  after_validation :geocode
 
   belongs_to(:owner,
   class_name: "User",
@@ -39,6 +42,10 @@ class Office < ActiveRecord::Base
   primary_key: :id
   )
 
+
+  def address
+    return [self.addr1, self.city, self.state, self.zip].compact.join(", ")
+  end
 
   def free?(start, finish)
 

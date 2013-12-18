@@ -40,6 +40,9 @@
       <%= image_tag "default-image.gif" %>
     <% end %>
   </section>
+  <section class="office-map group">
+    <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@office.latitude}%2C#{@office.longitude}" %>
+  </section>
 </div>
 
 <div class="listing-body group">

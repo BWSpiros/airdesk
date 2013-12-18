@@ -1,28 +1,45 @@
 <form action="<%= offices_find_url %>" method="post">
   <%= auth %>
-  <label> City:
-      <input type="text" name="search_params[city]" <%= "value=#{params[:search_params][:city]}" if params[:search_params] %>>
-  </label>
-  <label>Max Price
-    <input type="integer" name="search_params[price]" <%= "value=#{params[:search_params][:price]}" if params[:search_params] %>>
-  </label>
-  <label>Spaces Needed
-    <input type="integer" class="small-field" name="search_params[occupancy]" <%= "value=#{params[:search_params][:occupancy]}" if params[:search_params] %>>
-  </label>
-  <input type="submit" value="Filter">
 
-  <div>
-    <p>Features</p>
-      <input type="hidden" name="search_params[features[]]"></input>
-      <div class="featureBox group">
-        <% @features.each do |feat| %>
-        <div class="featureCheck">
-          <label>
-            <input type="checkbox" name="search_params[features][]" id="<%= feat.feature_name %>" value="<%=feat.id %>" <%= "checked" if @current_features.include? feat.id.to_s %>><%= feat.feature_name %> </input>
-          </label>
-        </div>
-        <% end %>
-      </div>
+  <input type="submit" value="Filter" class="filter-button">
+
+  <div class="form-item">
+    <label for="city-input"> City
+        <input type="text" id="city-input" name="search_params[city]" <%= "value=#{params[:search_params][:city]}" if params[:search_params] %>>
   </div>
+
+  <div class="form-item">
+    <label>Max Price
+      <input type="integer" name="search_params[price]" <%= "value=#{params[:search_params][:price]}" if params[:search_params] %>>
+    </label>
+
+  </div>
+
+  <div class="form-item">
+    <label>Spaces Needed
+      <input type="integer" class="small-field" maxlength="3" name="search_params[occupancy]" <%= "value=#{params[:search_params][:occupancy]}" if params[:search_params] %>>
+    </label>
+  </div>
+
+  <div class="form-item">
+    <label>Distance (mi)
+      <input type="integer" name="acceptable_range">
+    </label>
+  </div>
+
+  <label>Features
+    <input type="hidden" name="search_params[features[]]">
+
+    <div class="featureBox group">
+
+      <% @features.each do |feat| %>
+      <label for="<%= feat.feature_name %>">
+      <div class="featureCheck">
+          <input type="checkbox" name="search_params[features][]" id="<%= feat.feature_name %>" value="<%=feat.id %>" <%= "checked" if @current_features.include? feat.id.to_s %>> <%= feat.feature_name %>
+      </div>
+      <% end %>
+
+    </div>
+  </label>
 
 </form>

@@ -6,7 +6,7 @@ class OfficesController < ApplicationController
 
 
   def index
-    @offices = Office.last(10)
+    @offices =  current_user.geocoded? ? Office.near([current_user.latitude, current_user.longitude]).last(10) : Office.all.last(10)
     @features = Feature.all
     @current_features = params[:search_params] == nil ? [] : params[:search_params][:features]
 
@@ -27,10 +27,13 @@ class OfficesController < ApplicationController
 
     if params[:search_params]
 
+      locator = current_user if current_user.geocoded?
+      radius = (params[:acceptable_range] if params[:acceptable_range] != '') || 20
+
+
       to_search = ["SELECT * FROM offices"]
       if params[:search_params][:city] != ""
-        city = params[:search_params][:city]
-        search_params << ["city LIKE '%#{city}%'"]
+        locator = params[:search_params][:city]
       end
 
       if params[:search_params][:price] != ""
@@ -38,24 +41,36 @@ class OfficesController < ApplicationController
         search_params << ["price < #{price}"]
       end
       if params[:search_params][:features] != [nil]
+
         query = build_ridiculous_query((params[:search_params][:features])[1..-1])
 
         search_params = search_params.join(" AND ")
-        to_search = ["SELECT * FROM (#{query}) as features"]+(params[:search_params][:features])[1..-1]
+        to_search = ["SELECT * FROM (#{query}) "]+(params[:search_params][:features])[1..-1]
         to_search[0] += " WHERE #{search_params} " if !search_params.empty?
 
       elsif !search_params.empty?
-       to_search = ("SELECT * FROM offices WHERE "+ search_params.join(" AND ")).to_s
 
-     end
+      to_search[0] = ("(SELECT * FROM \"offices\" as main WHERE "+ search_params).to_s + ")"
+
+      end
     end
 
 
-    # epic fail
+    # fail
     # Need to refactor the keep_if below to be a proper SQL query
+    if params[:search_params][:features] != [nil]
+      to_search[0] = Office.near(locator, radius).to_sql.gsub("FROM \"offices\"", "FROM (" + to_search[0]+" as otheroffices) as offices")
+      @offices = Office.find_by_sql(to_search)
+    else
+      to_search[0] = search_params.join(" AND ").to_s
+      @offices = Office.where(to_search).near(locator, radius)
+    end
 
-    @offices = Office.find_by_sql(to_search)#.order("created_at DESC")
-    @offices.keep_if{|o| (o.features.map{|f| f.id}. & @current_features) == @current_features }
+    # @offices = Office.find_by_sql(to_search)
+    # fail
+
+              #.order("created_at DESC")
+    # @offices.keep_if{|o| (o.features.map{|f| f.id}. & @current_features) == @current_features }
     @current_features.map!{|f| f.to_s}
     # fail
     respond_to do |format|

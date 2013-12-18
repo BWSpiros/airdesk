@@ -9,10 +9,12 @@ class SessionsController < ApplicationController
     @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
     if !@user.nil?
       session[:token] = @user.reset_token
+      @user.update_attribute(:ip_address, request.remote_ip)
       redirect_to root_url
     else
       flash[:errors] = "Invalid Login"
       @user = User.new(params[:user])
+      @user.geocode
       render :new
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217162211) do
+ActiveRecord::Schema.define(:version => 20131217184347) do
 
   create_table "availabilities", :force => true do |t|
     t.integer  "office_id"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20131217162211) do
     t.string   "state"
     t.string   "website"
     t.float    "latitude"
-    t.float    "longitute"
+    t.float    "longitude"
   end
 
   create_table "photos", :force => true do |t|
@@ -130,7 +130,8 @@ ActiveRecord::Schema.define(:version => 20131217162211) do
     t.datetime "updated_at",           :null => false
     t.string   "website"
     t.float    "latitude"
-    t.float    "longitute"
+    t.float    "longitude"
+    t.string   "ip_address"
   end
 
 end

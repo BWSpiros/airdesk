@@ -44,4 +44,12 @@ Wanderdesk::Application.configure do
       # :s3_host_name => 's3-us-west-1.amazonaws.com' # or whatever your region host name is
     }
   }
+
+  class ActionDispatch::Request
+    def remote_ip
+      "38.89.128.21"
+    end
+  end
+
+
 end
