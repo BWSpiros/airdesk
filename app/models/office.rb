@@ -2,7 +2,19 @@ class Office < ActiveRecord::Base
   attr_accessible :addr1, :addr2, :arrangement, :available, :city, :state, :description, :occupancy, :owner_id, :price, :size, :title, :zip, :longitude, :latitude
 
   geocoded_by :address
+
+  reverse_geocoded_by :latitude, :longitude do |o, res|
+    if res = res.first
+      o.state = res.state if o.state == nil || o.state != o.state
+      o.zip = res.zipcode if o.zip == nil
+      o.city = res.city if o.city == nil || o.city != res.city
+    end
+  end
+
   after_validation :geocode
+  before_create :reverse_geocode
+
+  before_update :geocode
 
   belongs_to(:owner,
   class_name: "User",
@@ -44,9 +56,21 @@ class Office < ActiveRecord::Base
 
 
   def address
-    return [self.addr1, self.city, self.state, self.zip].compact.join(", ")
+    [self.addr1, self.city, self.state, self.zip].compact.keep_if{|e| e != ""}.join(", ")
   end
-
+  #
+  # def hard_geocode
+  #   addr = address.keep_if {|el| el != ""}
+  #   while addr.length > 0
+  #     geoaddr = addr.join(", ")
+  #     Office.geocoded_by geoaddr.to_sym
+  #     status = self.geocode
+  #     return status if status != nil
+  #     addr = addr[1..-1]
+  #   end
+  #   return nil
+  # end
+  #
   def free?(start, finish)
 
   end

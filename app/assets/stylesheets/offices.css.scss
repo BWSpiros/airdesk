@@ -63,24 +63,26 @@
 .featureBox {
   border: 1px solid black;
   width: auto;
-//  padding-right: 40px;
   overflow-y: scroll;
   height: 300px;
-  border-radius: 5px 0px 0px 5px
-//  resize: vertical;
+  border-radius: 5px 0px 0px 5px;
+  height: 200px;
 }
+
+.listing-body {
+  width: 300px;
+}
+
 
 .listing-header {
   margin-right: 20px;
   margin-bottom: 20px;
   height: auto;
   max-height: 500px;
-//  border: 1px black solid;
   overflow: auto;
 }
 
 .listing-body {
-//  border: 1px black solid;
 }
 
 .featureCheck {
@@ -156,7 +158,7 @@
 }
 
 
-.side-bar-input > input {
+.filter-controls > input {
   display: inline-block;
   width: auto;
 }
@@ -164,6 +166,17 @@
 
 .side-bar-input > .small-field {
   width: 50px;
+}
+
+
+.side-bar > .featureBox {
+  border: 1px solid black;
+  width: auto;
+//  padding-right: 40px;
+  overflow-y: scroll;
+  height: 300px;
+  border-radius: 5px 0px 0px 5px
+//  resize: vertical;
 }
 
 
