@@ -125,6 +125,13 @@
 // This is mostly for index.html.erb
 
 
+#map-canvas {
+  width: 270px;
+  height: 270px;
+  padding: 0px;
+
+}
+
 .filter-controls {
   width: 270px;
   float: left;

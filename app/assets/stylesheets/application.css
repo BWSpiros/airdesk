@@ -10,6 +10,8 @@
  *
  *= require_self
  *= require_tree .
+ *= require mapbox
+
  */
 
 html, body, div, span, applet, object, iframe,
@@ -32,6 +34,7 @@ time, mark, audio, video, input, button {
 	font: Arial,sans-serif;
 	vertical-align: baseline;
 }
+
 
 .group {
   content: "";

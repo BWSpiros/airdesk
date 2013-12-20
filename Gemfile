@@ -10,6 +10,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'arel'
 gem 'geocoder'
+gem 'mapbox-rails'
 
 
 group :development do

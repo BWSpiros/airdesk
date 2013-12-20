@@ -1,0 +1,20 @@
+<div class="listing-tile group">
+  <div class="search-image">
+
+    <% office_image = office.photos[0].picture.url(:search) if  office.photos[0] %>
+    <% if office_image != nil %>
+      <%= link_to (image_tag  office_image), office%>
+    <% else %>
+      <%= link_to (image_tag "default-image.gif"), office %>
+    <% end %>
+  </div>
+  <div class="search-footer group">
+    <p>
+      <%= office.title %>
+    </p>
+    <p>
+      $<%= office.price %>
+    </p>
+
+  </div>
+</div>
