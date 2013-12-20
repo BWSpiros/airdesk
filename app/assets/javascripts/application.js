@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require mapbox
+//= reqiore map
 //= require_tree .
