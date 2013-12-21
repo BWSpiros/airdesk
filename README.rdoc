@@ -44,15 +44,4 @@ remove the necessity for verbose geographic search via the city/zip/etc. fields.
 3. Handle finalized deals. Truncate overlapping availabilities.
 
 
-----------------------------------------------------------------------------------
 
- Copyright (C) 2013 Brian Stearns <brianw.stearns@gmail.com> 
-
- Everyone is permitted to copy and distribute verbatim or modified 
- copies of this license document, and changing it is allowed as long 
- as the name is changed. 
-
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
-   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
-
-  0. You just DO WHAT THE FUCK YOU WANT TO.
