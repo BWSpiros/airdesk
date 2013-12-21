@@ -43,5 +43,7 @@ remove the necessity for verbose geographic search via the city/zip/etc. fields.
 
 3. Handle finalized deals. Truncate overlapping availabilities.
 
+4. Switch searching over to PG search instead of constructing queries in the controller.
+
 
 
