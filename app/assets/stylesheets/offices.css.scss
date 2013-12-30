@@ -129,8 +129,11 @@
   width: 270px;
   height: 270px;
   padding: 0px;
-
+  z-index: -1;
+  display: block;
+  position: relative;
 }
+
 
 .filter-controls {
   width: 270px;

@@ -24,7 +24,7 @@ $(document).ready(function(){
         'marker-size': 'small',
         'marker-color': 'f00',
         title: "YOU!",
-        description: "You are here, you asshole"
+        description: "You are here"
       }
     }).addTo(map)
   }
