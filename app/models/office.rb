@@ -29,19 +29,22 @@ class Office < ActiveRecord::Base
   has_many(:favoritings,
   class_name: "Favorite",
   foreign_key: :office_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:availabilities,
   class_name: "Availability",
   foreign_key: :office_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:featurings,
   class_name: "Featuring",
   foreign_key: :office_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:features, through: :featurings, source: :feature )
@@ -49,13 +52,15 @@ class Office < ActiveRecord::Base
   has_many(:photos,
   class_name: "Photo",
   foreign_key: :office_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:deals,
   class_name: "Deal",
   foreign_key: :office_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
 

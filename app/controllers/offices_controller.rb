@@ -87,6 +87,8 @@ class OfficesController < ApplicationController
     @features = @office.features
     @photos = @office.photos[0]
 
+    p @availabilities
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @office }
@@ -119,7 +121,7 @@ class OfficesController < ApplicationController
         @office = Office.new(params[:office])
         @office.owner_id = current_user.id
         @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)} || []
-        
+
         @feats = (params[:features])[1..-1].map{|f| Feature.find(f)} # First value always blank?
         @office.save
         if params[:photos]

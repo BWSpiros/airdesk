@@ -22,7 +22,8 @@ class Deal < ActiveRecord::Base
   has_many(:messages,
   class_name: "Message",
   foreign_key: :deal_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
 

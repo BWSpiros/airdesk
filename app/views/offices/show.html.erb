@@ -103,8 +103,8 @@
   </div>
 
 
-  <% unless @availabilities.empty? || deal_open?(@office.id) || current_user.id == @office.owner_id %>
-  <%= button_to "Arrange a Rental!", {controller: "deals", action: "create", office_id: @office.id }, {office_id: @office.id, class: "rental-button"} %>
+  <% unless @availabilities.empty? || (logged_in? && deal_open?(@office.id)) %>
+  <%= button_to "Arrange a Rental!", {controller: "deals", action: "create", office_id: @office.id }, {office_id: @office.id, class: "rental-button"} if (logged_in? && current_user.id != @office.owner_id)  %>
     <% @availabilities.each_with_index do |availability, ai| %>
       <p>
         <b>Availability <%= ai+1 %>:</b>
@@ -113,6 +113,9 @@
     <% end %>
   <% end %>
 
+  <%= link_to "Delete Listing!", @office, method: :delete, data: {confirm: "Are you sure?"} if (logged_in? && current_user.id == @office.owner_id) %>
+
   <%= link_to 'Edit', edit_office_path(@office) %> |
   <%= link_to 'Back', offices_path %>
+
 </div>

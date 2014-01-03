@@ -12,37 +12,43 @@ class User < ActiveRecord::Base
   has_many(:offices,
   class_name: "Office",
   foreign_key: :owner_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:in_deals,
   class_name: "Deal",
   foreign_key: :owner_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:out_deals,
   class_name: "Deal",
   foreign_key: :renter_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:favorites,
   class_name: "Favorite",
   foreign_key: :user_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:sent_messages,
   class_name: "Message",
   foreign_key: :sender_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many(:received_messages,
   class_name: "Message",
   foreign_key: :receiver_id,
-  primary_key: :id
+  primary_key: :id,
+  dependent: :destroy
   )
 
   has_many :favorite_offices, through: :favorites, source: :office
