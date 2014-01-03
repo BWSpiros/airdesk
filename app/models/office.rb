@@ -3,7 +3,7 @@ class Office < ActiveRecord::Base
 
   validates :title, :longitude, :price, :arrangement, :occupancy, presence: true
   validates :price, numericality: { greater_than: 0, less_than: 100000}
-  validates :occupancy, numericality: { greater_than: 0, less_than: 100}
+  validates :occupancy, numericality: { greater_than: 0, less_than: 200}
 
   geocoded_by :address
 

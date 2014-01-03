@@ -119,6 +119,7 @@ class OfficesController < ApplicationController
         @office = Office.new(params[:office])
         @office.owner_id = current_user.id
         @availabilities = params[:availabilities].map{|_, av_params| Availability.new(av_params)} || []
+        
         @feats = (params[:features])[1..-1].map{|f| Feature.find(f)} # First value always blank?
         @office.save
         if params[:photos]
@@ -131,14 +132,18 @@ class OfficesController < ApplicationController
         @availabilities.keep_if{|a| !a.start_date.nil? && !a.end_date.nil? }
         @availabilities.each {|av| av.office = @office; av.save}
 
+
         raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
 
       end
-    rescue
-      flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
-      @features = Feature.all
-      @current_features = []
-      render :new
+    # rescue StandardError => e
+    #   puts "-------------"
+    #   p e.message
+    #   puts "-------------"
+    #   # flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
+    #   @features = Feature.all
+    #   @current_features = []
+    #   render :new
     else
       redirect_to root_url
     end
