@@ -136,14 +136,14 @@ class OfficesController < ApplicationController
         raise "invalid" unless @office.valid? && @availabilities.all? {|a| a.valid?}
 
       end
-    # rescue StandardError => e
-    #   puts "-------------"
-    #   p e.message
-    #   puts "-------------"
-    #   # flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
-    #   @features = Feature.all
-    #   @current_features = []
-    #   render :new
+    rescue StandardError => e
+      puts "-------------"
+      p e.message
+      puts "-------------"
+      # flash[:errors] = @office.errors.full_messages + @availabilities.map(&:errors).flatten
+      @features = Feature.all
+      @current_features = []
+      render :new
     else
       redirect_to root_url
     end
