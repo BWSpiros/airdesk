@@ -1,7 +1,7 @@
 == AirDesk/WanderDesk/Maybe I'll call it AirChair, that sounds nice doesn't it?
 
 This project is my final project for App Academy. It's a Rails webapp which will
-also be getting some well needed front end love this coming week. If you could
+also be getting some well needed front end love in the coming weeks. If you could
 use a junior rails dev, have positions in NYC, and think that I could fulfill 
 that role, please email me at brianw.stearns@gmail.com. 
 
